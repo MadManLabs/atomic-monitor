@@ -15,16 +15,19 @@ from bin.disk import Disk
 # convert human sizes to bytes
 def convert_bytes(byts):
     try:
+        byts = byts.lower()
         if byts.endswith('kb'):
             return int(byts[0:-2]) * 1024
         elif byts.endswith('mb'):
             return int(byts[0:-2]) * 1024 * 1024
         elif byts.endswith('gb'):
             return int(byts[0:-2]) * 1024 * 1024 * 1024
-        else:
-            raise IOError('Invalid input. Correct format: #kb/#mb/#gb like 10gb or 5mb')
-    except ValueError:
+        
+        #for anything else... just throw an exception, we care zero
         raise IOError('Invalid input. Correct format: #kb/#mb/#gb like 10gb or 5mb')
+        
+    except Exception as error :
+        raise Exception ('Invalid input. Correct format: #kb/#mb/#gb like 10gb or 5mb. An error '+  + repr(error) + 'occured')
 
 
 # load config
